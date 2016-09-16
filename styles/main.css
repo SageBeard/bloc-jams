@@ -47,4 +47,17 @@ html {
      .column.fourth { width: 25%; }
      .column.flow-opposite { float: right; }  
 }
+.clearfix::before,
+.clearfix::after {
+   content: " ";
+   display: table;
+}
+
+.clearfix::after {
+   clear: both;
+}
+
+.green {
+  color: green;
+}
  
