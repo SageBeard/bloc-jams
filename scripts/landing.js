@@ -8,9 +8,11 @@
          points[index].style.msTransform = "scaleX(1) translateY(0)";
          points[index].style.WebkitTransform = "scaleX(1) translateY(0)";
      };
-     document.getElementById('points').addEventListener('loop', forEach)
+     var forEach = function() {
+        for (var i = 0; i < points.length; i++)
      }
- };
+ forEach(revealPoint); 
+};
 
  window.onload = function() {
      var sellingPoints = document.getElementsByClassName('selling-points')[0];
