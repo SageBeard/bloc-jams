@@ -60,6 +60,10 @@
      width: 5%;
  }
 
+<<<<<<< HEAD
+=======
+ 
+>>>>>>> chkpt-12-scripting
  .album-song-button {
      text-align: center;
      font-size: 14px;
@@ -86,7 +90,7 @@
          text-align: center;
      }
      
-     .album-view-title {
+.album-view-title {
          margin-top: 0;   
      }
  }
