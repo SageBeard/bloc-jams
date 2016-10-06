@@ -65,7 +65,14 @@ var albumPicasso = {
  };
 
 var findParentByClassName = function(element, targetClass) {
-    if (element) {
+    if (element.parentElement === undefined) {
+    alert("No parent found");
+  }
+    
+    if (targetClass.parentElement === undefined) {
+    alert("No parent found with that class name"); 
+  } // conditional to check parent and if there no parent then return alert("words")
+    if (element) { 
         var currentParent = element.parentElement;
         while (currentParent.className != targetClass && currentParent.className !== null) {
             currentParent = currentParent.parentElement;
@@ -102,7 +109,6 @@ var getSongItem = function(element) {
      } else if (currentlyPlayingSong === songItem.getAttribute('data-song-number')) {
          songItem.innerHTML = playButtonTemplate;
          currentlyPlayingSong = null;
-     }
      } else if (currentlyPlayingSong !== songItem.getAttribute('data-song-number')) {
          var currentlyPlayingSongElement = document.querySelector('[data-song-number="' + currentlyPlayingSong + '"]');
          currentlyPlayingSongElement.innerHTML = currentlyPlayingSongElement.getAttribute('data-song-number');
@@ -114,10 +120,6 @@ var getSongItem = function(element) {
 
 var songListContainer = document.getElementsByClassName('album-view-song-list')[0]; 
 var songRows = document.getElementsByClassName('album-view-song-item');
-var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></span></a>';
-var pauseButtonTemplate = '<a class="album-song-button"><span class="ion-pause"></span></a>';
-
-var currentlyPlayingSong = null;
 
 songListContainer.addEventListener('mouseover', function(event) {
          // #1
@@ -133,7 +135,9 @@ songListContainer.addEventListener('mouseover', function(event) {
         }
     });
 
-
+var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></span></a>';
+var pauseButtonTemplate = '<a class="album-song-button"><span class="ion-pause"></span></a>';
+var currentlyPlayingSong = null;
 
 window.onload = function() {
      setCurrentAlbum(albumPicasso);
