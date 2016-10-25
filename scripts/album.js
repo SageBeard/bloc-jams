@@ -26,6 +26,7 @@ var setVolume = function(volume) {
 };
 
 var getSongNumberCell = function(number) {
+  console.log(number)
   return $('.song-item-number[data-song-number="' + number + '"]'); //returns songnumber element & number
 }; 
 
@@ -203,20 +204,26 @@ var previousSong = function() {
 
 
 var togglePlayFromPlayerBar = function() {
+  if (currentlyPlayingSongNumber === null) {
+      setSong(1);
+      currentlyPlayingSongNumber = 1;
+  }
   var $currentSongNumberCell = getSongNumberCell(currentlyPlayingSongNumber);
+  
+
   //if song is paused & play button is clicked in player bar
-  if ($toggleButton.click()) {
+  if ($toggleButton.click) {
     if (currentSoundFile.isPaused()) {
-    $currentSongNumberCell.html(pauseButtonTemplate);  
-    $toggleButton.html(playerBarPauseButton);//change HTML of player bar's play button to a pause button
-    currentSoundFile.play();
-    console.log("toggle played");
+      $currentSongNumberCell.html(pauseButtonTemplate);  
+      $toggleButton.html(playerBarPauseButton);//change HTML of player bar's play button to a pause button
+      currentSoundFile.play();
+      console.log("toggle played");
     } else { 
-    $currentSongNumberCell.html(playButtonTemplate);
-    $toggleButton.html(playerBarPlayButton);//change song number cell from pause to play button
-    currentSoundFile.pause(); //change HTML of player bars pause button to a play button
-    console.log("toggle paused");
-    //pause the song
+      $currentSongNumberCell.html(playButtonTemplate);
+      $toggleButton.html(playerBarPlayButton);//change song number cell from pause to play button
+      currentSoundFile.pause(); //change HTML of player bars pause button to a play button
+      console.log("toggle paused");
+      //pause the song
    }
   }
 };
