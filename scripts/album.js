@@ -44,8 +44,8 @@ var createSongRow = function(songNumber, songName, songLength) {
     + '  <td class="song-item-duration">' + songLength + '</td>'
     + '</tr>'
   ;
-
-  var $row = $(template);
+   
+  var $row = $(template); 
 
   // clickHandler logic
   var clickHandler = function() {
@@ -140,6 +140,9 @@ var updateSeekBarWhileSongPlays = function() {
       var $seekBar = $('.seek-control .seek-bar');
       
       updateSeekPercentage($seekBar, seekBarFillRatio);
+//      console.log(currentSoundFile)
+      setCurrentTimeInPlayerBar(currentSoundFile);
+      filterTimeCode(currentSoundFile); 
     });
   }
 };
@@ -208,6 +211,7 @@ var updatePlayerBarSong = function() {
   $('.currently-playing .artist-name').text(currentAlbum.artist);
   $('.currently-playing .artist-song-mobile').text(currentSongFromAlbum.title + " - " + currentAlbum.artist);
   $toggleButton.html(playerBarPauseButton);
+  setTotalTimeInPlayerBar(currentSoundFile); 
 };
 
 var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></span></a>';
@@ -308,6 +312,22 @@ var togglePlayFromPlayerBar = function() {
       //pause the song
    }
   }
+};
+
+var filterTimeCode = function(timeInSeconds) {
+  var seconds = parseFloat(timeInSeconds); 
+  var hours = Math.floor(seconds / 3600);
+  var minutes = Math.floor((seconds - (hours * 3600)) / 60);
+  return minutes + ":" + seconds;
+};
+
+var setCurrentTimeInPlayerBar = function(currentTime) {
+    var time = currentSoundFile.getTime(currentTime); // use buzz library get getTime() to a variable
+    $('.current-time').html(time); //sets text of .current-time element to
+};
+
+var setTotalTimeInPlayerBar = function(totalTime) { 
+    $('.total-time').html(totalTime); //sets text of .current-time element to
 };
 
 var $toggleButton = $('.main-controls .play-pause');
