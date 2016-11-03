@@ -141,8 +141,6 @@ var updateSeekBarWhileSongPlays = function() {
       updateSeekPercentage($seekBar, seekBarFillRatio);
 //      console.log(currentSoundFile)
       setCurrentTimeInPlayerBar(currentSoundFile);
-      filterTimeCode(currentSoundFile);
-      filterTimeCode(currentSongFromAlbum.duration); 
     });
   }
 };
@@ -315,21 +313,24 @@ var togglePlayFromPlayerBar = function() {
 };
 
 var filterTimeCode = function(timeInSeconds) {
-  var sec_num = parseFloat(timeInSeconds); 
-  var seconds = Math.round(sec_num / 10) * 10; 
-  var hours = Math.floor(seconds / 3600);
-  var minutes = Math.floor((seconds - (hours * 3600)) / 60);
-  var time = minutes + ":" + seconds; 
-  return time; 
+    var sec_num = parseInt(timeInSeconds); 
+    var hours   = Math.floor(sec_num / 3600);
+    var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+    var seconds = sec_num - (hours * 3600) - (minutes * 60);
+
+    if (minutes < 10) {minutes = "0"+minutes;}
+    if (seconds < 10) {seconds = "0"+seconds;}
+    return minutes+':'+seconds; 
 };
 
 var setCurrentTimeInPlayerBar = function(currentTime) {
-    var time = currentSoundFile.getTime(currentTime); // use buzz library get getTime() to a variable
+    var time = filterTimeCode(currentSoundFile.getTime(currentTime)); // use buzz library get getTime() to a variable
     $('.current-time').html(time); //sets text of .current-time element to
 };
 
 var setTotalTimeInPlayerBar = function(totalTime) { 
-    $('.total-time').html(totalTime); //sets text of .current-time element to
+    var filteredTotal = filterTimeCode(totalTime); 
+    $('.total-time').html(filteredTotal); //sets text of .current-time element to
 };
 
 var $toggleButton = $('.main-controls .play-pause');
